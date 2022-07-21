@@ -126,8 +126,6 @@ import 'package:intl/intl.dart';
 //  }
 //}
 
-import 'package:intl/intl.dart';
-
 class Item {
   Item({
     required this.headerValue,
@@ -144,29 +142,6 @@ class Item {
 }
 
 List<Item> generateItems(int numberOfItems) {
-  // Create an array of objects
-  // var data = [
-  //   {
-  //     "chest": [
-  //       {
-  //         "description": "Bench press",
-  //         "imagePath": "assets/4050052-200.png",
-  //       },
-  //       {
-  //         "description": "Dumbell press" ,
-  //         "imagePath": "assets/2056787-200.png"
-  //       },
-  //       {
-  //         "description": "Dips" ,
-  //         "imagePath": "assets/3461872-200.png",
-  //       },
-  //       {
-  //         "description": "Pull ups",
-  //         "imagePath": "assets/2572108-200.png",
-  //       }
-  //     ]
-  //   }
-  // ];
   var actionList = [
     [
       {
@@ -262,7 +237,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey.shade900,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -373,7 +348,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       },
       children: _data.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.grey.shade900,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
               title: Text(

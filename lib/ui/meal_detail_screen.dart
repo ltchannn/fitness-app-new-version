@@ -1,5 +1,6 @@
 import 'package:my_project/models/meals.dart';
 import 'package:flutter/material.dart';
+import 'package:my_project/videos/video.dart';
 
 class MealDetailScreen extends StatelessWidget {
   final Meal meal;
@@ -163,8 +164,9 @@ class MealDetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
+                    //VideoScreen(),
                     Padding(
                       padding: EdgeInsets.only(
                         left: 16,

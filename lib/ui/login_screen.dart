@@ -3,12 +3,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_project/main.dart';
 import 'package:my_project/ui/Google_sign_in.dart';
-import 'package:my_project/ui/profile_screen.dart';
-import 'package:intl/intl.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key, required this.SignUp}) : super(key: key);
@@ -25,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final formkey2 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
 
   var _isObscure = true;
   FocusNode myFocusNode = FocusNode();
@@ -64,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       "Hi user, \n welcome back",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
                       ),
@@ -84,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: emailController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter email';
+                              return '\u26A0 A valid email is required';
                             }
                             return null;
                           },
@@ -110,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: passwordController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter password';
+                              return '\u26A0 Password must be 6 characters';
                             }
                             return null;
                           },
@@ -193,8 +191,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                               login();
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar1);
+                              FirebaseAuth.instance
+                                  .authStateChanges()
+                                  .listen((User? user) {
+                                if (user != null) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar1);
+                                }
+                              });
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 20,
                     ),
                     Row(
-                      children: <Widget>[
+                      children: [
                         Flexible(
                           child: Divider(
                             thickness: 0.8,

@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_project/ui/meal_detail_screen.dart';
-import 'package:my_project/ui/personal_page.dart';
-import 'package:my_project/ui/search_page.dart';
 import 'package:my_project/ui/yyy.dart';
-import 'package:flutter/material.dart';
 import 'package:my_project/models/meals.dart';
-import 'package:provider/provider.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 import 'package:intl/intl.dart';
-import 'package:my_project/ui/login_screen.dart';
-import 'package:my_project/ui/Google_sign_in.dart';
 import 'package:animations/animations.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -40,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 0,
               right: 0,
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  bottom: const Radius.circular(40.0),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(40.0),
                 ),
                 child: Container(
                   color: Colors.white,
@@ -57,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ListTile(
                         title: Text(
                           '${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM").format(today)}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 15,
                           ),
@@ -72,9 +66,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.black,
                           ),
                         ),
-                        trailing: ClipOval(
-                          child: Image.asset("assets/unknown.png"),
-                        ),
+                        trailing: (user.photoURL == null)
+                            ? CircleAvatar(
+                                radius: 30,
+                                backgroundImage: NetworkImage(
+                                    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg'),
+                              )
+                            : CircleAvatar(
+                                radius: 30,
+                                backgroundImage: NetworkImage(user.photoURL!),
+                              ),
                       ),
                       Row(
                         children: <Widget>[
@@ -147,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Meals for Today',
                         style: TextStyle(
                           color: Colors.blueGrey,
-                          fontSize: 16,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -168,9 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 1.h),
                     Expanded(
                       child: OpenContainer(
                         closedElevation: 0,
@@ -325,6 +324,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
                   ],
                 ),
               ),
@@ -359,7 +361,7 @@ class _IngredientProgress extends StatelessWidget {
         Text(
           ingredient.toUpperCase(),
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 11.sp,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -392,7 +394,7 @@ class _IngredientProgress extends StatelessWidget {
             ),
             Text(
               "${leftAmount}g left",
-              style: TextStyle(fontSize: 13),
+              style: TextStyle(fontSize: 9.5.sp, fontWeight: FontWeight.w400),
             ),
           ],
         ),
@@ -405,7 +407,6 @@ class _RadialProgress extends StatelessWidget {
   final double height, width, progress;
 
   const _RadialProgress({
-    super.key,
     required this.height,
     required this.width,
     required this.progress,
@@ -520,7 +521,7 @@ class _MealCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           SizedBox(
-                            height: 0,
+                            height: 5,
                           ),
                           Text(
                             meal.mealTime,
@@ -567,7 +568,7 @@ class _MealCard extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                            height: 16,
+                            height: 0.5.h,
                           ),
                         ],
                       ),

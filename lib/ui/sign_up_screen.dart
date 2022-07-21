@@ -1,11 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_project/main.dart';
-import 'package:my_project/ui/profile_screen.dart';
-import 'package:intl/intl.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:my_project/ui/login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   final Function() SignIn;
@@ -181,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [
+                            colors: const [
                               Color(0xFF9DCEFF),
                               Color(0xFF92A3FD),
                             ],
@@ -196,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
+                            children: const <Widget>[
                               Icon(
                                 Icons.arrow_forward_sharp,
                                 color: Colors.white,
@@ -221,7 +216,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 20,
                     ),
                     Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Flexible(
                           child: Divider(
                             thickness: 0.8,

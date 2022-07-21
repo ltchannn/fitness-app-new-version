@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_project/ui/login_screen.dart';
-import 'package:my_project/ui/profile_screen.dart';
 import 'package:my_project/ui/sign_up_screen.dart';
 
 class AuthScreen extends StatefulWidget {
