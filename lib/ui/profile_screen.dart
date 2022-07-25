@@ -20,47 +20,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    final today = DateTime.now();
+    return OrientationBuilder(builder: (context, orientaion) {
+      switch (orientaion) {
+        case Orientation.portrait:
+          return Scaffold(
+            body: screens[currentIndex],
+            backgroundColor: Color(0xFFE9E9E9),
+            bottomNavigationBar: ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+              child: BottomNavigationBar(
+                onTap: (index) {
+                  setState(
+                    () => currentIndex = index,
+                  );
+                },
+                currentIndex: currentIndex,
+                iconSize: 30,
+                selectedIconTheme: IconThemeData(
+                  color: Colors.orange,
+                ),
+                unselectedIconTheme: IconThemeData(color: Colors.black12),
+                selectedLabelStyle: TextStyle(color: Colors.black),
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.search),
+                    label: 'search',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'personal',
+                  ),
+                ],
+                selectedItemColor: Colors.black,
+              ),
+            ),
+          );
 
-    return Scaffold(
-      body: screens[currentIndex],
-      backgroundColor: Color(0xFFE9E9E9),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
-        child: BottomNavigationBar(
-          onTap: (index) {
-            setState(
-              () => currentIndex = index,
-            );
-          },
-          currentIndex: currentIndex,
-          iconSize: 30,
-          selectedIconTheme: IconThemeData(
-            color: Colors.orange,
-          ),
-          unselectedIconTheme: IconThemeData(color: Colors.black12),
-          selectedLabelStyle: TextStyle(color: Colors.black),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'personal',
-            ),
-          ],
-          selectedItemColor: Colors.black,
-        ),
-      ),
-    );
+          break;
+
+        case Orientation.landscape:
+          return Scaffold(
+            body: screens[currentIndex],
+          );
+          break;
+      }
+    });
   }
 }
 

@@ -56,14 +56,14 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 //       );
 // }
 
-class AAAAA extends StatefulWidget {
-  AAAAA({Key? key}) : super(key: key);
+class Video extends StatefulWidget {
+  Video({Key? key}) : super(key: key);
 
   @override
-  State<AAAAA> createState() => _AAAAAState();
+  State<Video> createState() => _VideoState();
 }
 
-class _AAAAAState extends State<AAAAA> {
+class _VideoState extends State<Video> {
   late YoutubePlayerController _controller;
   @override
   void initState() {
@@ -72,7 +72,7 @@ class _AAAAAState extends State<AAAAA> {
     _controller = YoutubePlayerController(
       initialVideoId: '-BYWbosiYlw',
       flags: YoutubePlayerFlags(
-        autoPlay: true,
+        autoPlay: false,
         mute: true,
       ),
     );
@@ -81,6 +81,7 @@ class _AAAAAState extends State<AAAAA> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFE9E9E9),
       body: Container(
         child: YoutubePlayer(
           controller: _controller,

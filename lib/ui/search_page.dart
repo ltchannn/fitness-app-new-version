@@ -1,48 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:my_project/videos/video.dart';
+import 'package:sizer/sizer.dart';
+
+import '../Widgets/search.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color(0xFFE9E9E9),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Color(0xFFE9E9E9),
-          title: Container(
-            height: 5.h,
-            child: TextField(
-              style: TextStyle(
-                color: Colors.white,
-              ),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.grey[850],
-                contentPadding: EdgeInsets.all(0),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.grey.shade500,
-                ),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(50)),
-                hintText: 'Search...',
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey.shade500,
-                ),
+    return OrientationBuilder(builder: (context, orientaion) {
+      switch (orientaion) {
+        case Orientation.portrait:
+          return SafeArea(
+            child: Scaffold(
+              appBar: Search(),
+              backgroundColor: Color(0xFFE9E9E9),
+              body: Center(
+                child: Video(),
               ),
             ),
-          ),
-        ),
-        body: Center(
-          child: AAAAA(),
-        ),
-      ),
-    );
+          );
+
+          // TODO: Handle this case.
+          break;
+        case Orientation.landscape:
+          return Video();
+
+// TODO: Handle this case.
+          break;
+      }
+    });
+    // return SafeArea(
+    //   child: Scaffold(
+    //     appBar: Search(),
+    //     backgroundColor: Color(0xFFE9E9E9),
+    //     body: Center(
+    //       child: Video(),
+    //     ),
+    //   ),
+    // );
   }
 }

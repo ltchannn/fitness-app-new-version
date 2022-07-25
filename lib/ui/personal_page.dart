@@ -22,15 +22,9 @@ class _PersonalScreenState extends State<PersonalScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 16,
-            ),
+            padding: EdgeInsets.all(16),
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
                   //color: Colors.black12,
                   height: 15.h,
@@ -128,8 +122,11 @@ class _PersonalScreenState extends State<PersonalScreen> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Container(
-                      height: 8.h,
+                      height: (MediaQuery.of(context).size.height - 15) * 0.08,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Colors.white,

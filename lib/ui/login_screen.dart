@@ -51,10 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 40,
+                height: 35,
               ),
               Container(
-                height: (size.height - 60) * 0.5,
+                height: (size.height - 65) * 0.55,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     RichText(
                       text: TextSpan(
@@ -154,6 +154,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               Container(
                 height: (size.height - 60) * 0.5,
@@ -221,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 20,
                     ),
                     Row(
-                      children: [
+                      children: const [
                         Flexible(
                           child: Divider(
                             thickness: 0.8,
@@ -247,7 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     Center(
                       child: ElevatedButton(
@@ -262,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           provider.googleLogin();
                           final snackBar2 = SnackBar(
                             content: Row(
-                              children: <Widget>[
+                              children: const <Widget>[
                                 FaIcon(FontAwesomeIcons.lock),
                                 SizedBox(
                                   width: 10,
@@ -271,14 +274,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           );
-
-                          // Find the ScaffoldMessenger in the widget tree
-                          // and use it to show a SnackBar.
                           ScaffoldMessenger.of(context).showSnackBar(snackBar2);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
+                          children: const <Widget>[
                             FaIcon(FontAwesomeIcons.google),
                             SizedBox(
                               width: 5,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_project/ui/meal_detail_screen.dart';
-import 'package:my_project/ui/yyy.dart';
+import 'package:my_project/ui/workout.dart';
 import 'package:my_project/models/meals.dart';
-import 'package:vector_math/vector_math_64.dart' as math;
 import 'package:intl/intl.dart';
 import 'package:animations/animations.dart';
 import 'package:sizer/sizer.dart';
+import 'package:my_project/ui/mealcard.dart';
+import 'package:my_project/ui/radialprogress.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -21,16 +21,21 @@ class _HomeScreenState extends State<HomeScreen> {
     final user = FirebaseAuth.instance.currentUser!;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    var safepadding = MediaQuery.of(context).padding.top;
     final today = DateTime.now();
+    var limitheight =
+        (height - kBottomNavigationBarHeight - safepadding) * 0.35;
 
     return Scaffold(
       backgroundColor: Color(0xFFE9E9E9),
       body: SafeArea(
         child: Stack(
           children: <Widget>[
+            //top element
             Positioned(
               top: 0,
-              height: height * 0.35,
+              height:
+                  (height - kBottomNavigationBarHeight - safepadding) * 0.35,
               left: 0,
               right: 0,
               child: ClipRRect(
@@ -40,8 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   color: Colors.white,
                   padding: EdgeInsets.only(
-                    top: 30,
-                    left: 32,
+                    top: 0,
+                    left: 28,
                     right: 16,
                     bottom: 10,
                   ),
@@ -68,22 +73,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         trailing: (user.photoURL == null)
                             ? CircleAvatar(
-                                radius: 30,
+                                radius: 25,
                                 backgroundImage: NetworkImage(
                                     'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg'),
                               )
                             : CircleAvatar(
-                                radius: 30,
+                                radius: 25,
                                 backgroundImage: NetworkImage(user.photoURL!),
                               ),
                       ),
                       Row(
                         children: <Widget>[
-                          _RadialProgress(
-                            width: width * 0.4,
-                            height: width * 0.4,
-                            progress: 0.7,
-                          ),
+                          (limitheight < 207)
+                              ? RadialProgress(
+                                  width: (width) * 0.3,
+                                  height: width * 0.3,
+                                  progress: 0.7,
+                                )
+                              : RadialProgress(
+                                  width: (width) * 0.4,
+                                  height: width * 0.4,
+                                  progress: 0.7,
+                                ),
                           SizedBox(
                             width: 10,
                           ),
@@ -128,12 +139,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            //middle element
             Positioned(
-              top: height * 0.35,
+              top: (height - kBottomNavigationBarHeight - safepadding) * 0.37,
               left: 0,
               right: 0,
               child: Container(
-                height: height * 0.5,
+                height: (height < 670)
+                    ? (height - kBottomNavigationBarHeight - safepadding - 14) *
+                        0.65
+                    : (height - kBottomNavigationBarHeight - safepadding - 14) *
+                        0.6,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -145,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         right: 16,
                       ),
                       child: Text(
-                        'Meals for Today',
+                        'Meals for Today ${height}',
                         style: TextStyle(
                           color: Colors.blueGrey,
                           fontSize: 14.sp,
@@ -162,14 +178,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: 32,
                             ),
                             for (int i = 0; i < meals.length; i++)
-                              _MealCard(
+                              MealCard(
                                 meal: meals[i],
                               ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 1.h),
+
+                    //bottom element
                     Expanded(
                       child: OpenContainer(
                         closedElevation: 0,
@@ -184,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: openContainer,
                             child: Container(
                               margin: EdgeInsets.only(
-                                bottom: 20,
+                                bottom: 15,
                                 left: 32,
                                 right: 32,
                               ),
@@ -324,9 +341,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
                   ],
                 ),
               ),
@@ -399,183 +413,6 @@ class _IngredientProgress extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class _RadialProgress extends StatelessWidget {
-  final double height, width, progress;
-
-  const _RadialProgress({
-    required this.height,
-    required this.width,
-    required this.progress,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _RadialPainter(progress: 0.7),
-      child: Container(
-        height: height,
-        width: width,
-        child: Center(
-          child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(children: [
-                TextSpan(
-                  text: "1234",
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.deepPurple[900],
-                  ),
-                ),
-                TextSpan(text: "\n"),
-                TextSpan(
-                  text: "kcal left",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.deepPurple[900],
-                  ),
-                ),
-              ])),
-        ),
-      ),
-    );
-  }
-}
-
-class _RadialPainter extends CustomPainter {
-  final double progress;
-
-  _RadialPainter({required this.progress});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..strokeWidth = 10
-      ..color = Colors.deepPurple
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    Offset center = Offset(size.width / 2, size.height / 2);
-    //canvas.drawCircle(center, size.width / 2, paint);
-
-    double relativeProgress = 360 * progress;
-    canvas.drawArc(Rect.fromCircle(center: center, radius: size.width / 2),
-        math.radians(0), math.radians(relativeProgress), false, paint);
-  }
-
-  @override
-  bool shouldRepaint(_RadialPainter oldDelegate) => true;
-
-  @override
-  bool shouldRebuildSemantics(_RadialPainter oldDelegate) => false;
-}
-
-class _MealCard extends StatelessWidget {
-  final Meal meal;
-
-  const _MealCard({Key? key, required this.meal}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 20, bottom: 10),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => MealDetailScreen(
-                meal: meal,
-              ),
-            ),
-          );
-        },
-        child: Material(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          elevation: 4,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    child: Image.asset(
-                      meal.imagePath,
-                      width: 150,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                Flexible(
-                    fit: FlexFit.tight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 12.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            meal.mealTime,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.blueGrey,
-                            ),
-                          ),
-                          Text(
-                            meal.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            '${meal.kiloCaloriesBurnt} kcal',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.blueGrey,
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.access_time,
-                                size: 15,
-                                color: Colors.black12,
-                              ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                "${meal.timeTaken} mins",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: Colors.blueGrey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 0.5.h,
-                          ),
-                        ],
-                      ),
-                    ))
-              ]),
-        ),
-      ),
     );
   }
 }
