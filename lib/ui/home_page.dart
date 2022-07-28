@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:animations/animations.dart';
 import 'package:sizer/sizer.dart';
 import 'package:my_project/ui/mealcard.dart';
-import 'package:my_project/ui/radialprogress.dart';
+import 'package:my_project/Widgets/radialprogress.dart';
+import '../Widgets/ingredient_progress.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -103,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              _IngredientProgress(
+                              IngredientProgress(
                                   ingredient: 'Protein',
                                   leftAmount: 38,
                                   progress: 0.9,
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               SizedBox(
                                 height: 10,
                               ),
-                              _IngredientProgress(
+                              IngredientProgress(
                                   ingredient: 'Carbs',
                                   leftAmount: 90,
                                   progress: 0.9,
@@ -123,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               SizedBox(
                                 height: 10,
                               ),
-                              _IngredientProgress(
+                              IngredientProgress(
                                   ingredient: 'Fat',
                                   leftAmount: 77,
                                   progress: 0.7,
@@ -161,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         right: 16,
                       ),
                       child: Text(
-                        'Meals for Today ${height}',
+                        'Meals for Today',
                         style: TextStyle(
                           color: Colors.blueGrey,
                           fontSize: 14.sp,
@@ -348,71 +349,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _IngredientProgress extends StatelessWidget {
-  final String ingredient;
-  final double leftAmount;
-  final double progress, width;
-  final Color progressColor;
-
-  const _IngredientProgress(
-      {Key? key,
-      required this.ingredient,
-      required this.leftAmount,
-      required this.progress,
-      required this.progressColor,
-      required this.width})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          ingredient.toUpperCase(),
-          style: TextStyle(
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  height: 10,
-                  width: width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.black12,
-                  ),
-                ),
-                Container(
-                  height: 10,
-                  width: width * progress,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: progressColor,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "${leftAmount}g left",
-              style: TextStyle(fontSize: 9.5.sp, fontWeight: FontWeight.w400),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

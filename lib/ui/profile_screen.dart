@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_project/models/meals.dart';
 import 'package:my_project/ui/personal_page.dart';
 import 'package:my_project/ui/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:my_project/ui/home_page.dart';
+import 'package:my_project/models/meals.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

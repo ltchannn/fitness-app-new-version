@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class Search extends StatelessWidget implements PreferredSizeWidget {
+class Search extends StatefulWidget implements PreferredSizeWidget {
   const Search({Key? key}) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  State<Search> createState() => _SearchState();
+
+  @override
+  Size get preferredSize => Size.fromHeight(100);
+}
+
+class _SearchState extends State<Search> {
+  final _controller = TextEditingController();
+  onSearch(String search) {
+    print(search);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +25,8 @@ class Search extends StatelessWidget implements PreferredSizeWidget {
       title: Container(
         height: 5.h,
         child: TextField(
+          controller: _controller,
+          onChanged: (value) => onSearch(value),
           style: TextStyle(
             color: Colors.white,
           ),
@@ -25,6 +37,13 @@ class Search extends StatelessWidget implements PreferredSizeWidget {
             prefixIcon: Icon(
               Icons.search,
               color: Colors.grey.shade500,
+            ),
+            suffixIcon: IconButton(
+              onPressed: () => _controller.clear(),
+              icon: Icon(
+                Icons.clear,
+                color: Colors.grey.shade500,
+              ),
             ),
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,

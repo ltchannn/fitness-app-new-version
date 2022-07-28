@@ -123,10 +123,9 @@ class _PersonalScreenState extends State<PersonalScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
-                      height: (MediaQuery.of(context).size.height - 15) * 0.08,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Colors.white,

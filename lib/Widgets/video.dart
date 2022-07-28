@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:my_project/models/meals.dart';
 
 // class VideoScreen extends StatefulWidget {
 //   VideoScreen({Key? key}) : super(key: key);
@@ -57,7 +60,11 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 // }
 
 class Video extends StatefulWidget {
-  Video({Key? key}) : super(key: key);
+  final Meal meal;
+  Video({
+    Key? key,
+    required this.meal,
+  }) : super(key: key);
 
   @override
   State<Video> createState() => _VideoState();
@@ -65,21 +72,33 @@ class Video extends StatefulWidget {
 
 class _VideoState extends State<Video> {
   late YoutubePlayerController _controller;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    // final List<String> url = [
+    //   'https://www.youtube.com/watch?v=8jwFwVHTgZc&t=1s',
+    //   'https://www.youtube.com/watch?v=ldAINdBOjQY',
+    //   'https://www.youtube.com/watch?v=rHJJ_gnZMos',
+    // ];
+
+    // const url = "https://www.youtube.com/watch?v=8jwFwVHTgZc&t=1s";
+
     _controller = YoutubePlayerController(
-      initialVideoId: '-BYWbosiYlw',
+      initialVideoId: YoutubePlayer.convertUrlToId(widget.meal.url)!,
       flags: YoutubePlayerFlags(
         autoPlay: false,
         mute: true,
       ),
     );
+    log(widget.meal.url);
   }
 
   @override
   Widget build(BuildContext context) {
+    print(widget.meal.url);
     return Scaffold(
       backgroundColor: Color(0xFFE9E9E9),
       body: Container(
