@@ -6,6 +6,9 @@ import 'package:my_project/ui/Google_sign_in.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:my_project/models/coachinfo.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key, required this.SignUp}) : super(key: key);
@@ -23,6 +26,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final user = FirebaseAuth.instance.currentUser;
+  final _url = "https://randomuser.me/api/?results=20";
+  CoachInfo? coachInfo;
+  List<Results>? list = [];
 
   var _isObscure = true;
   FocusNode myFocusNode = FocusNode();
@@ -193,6 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               );
                               login();
+                              //getData();
 
                               FirebaseAuth.instance
                                   .authStateChanges()
@@ -263,6 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               listen: false);
                           provider.googleLogin();
+                          //getData();
                           final snackBar2 = SnackBar(
                             content: Row(
                               children: const <Widget>[
@@ -324,6 +332,16 @@ class _LoginScreenState extends State<LoginScreen> {
     formkey1.currentState!.validate();
     formkey2.currentState!.validate();
   }
+
+  // Future getData() async {
+  //   final response = await http.get(Uri.parse(_url));
+  //   coachInfo = CoachInfo.fromJson(jsonDecode(response.body));
+
+  //   setState(() {
+  //     list = coachInfo?.results;
+  //     print(response.body);
+  //   });
+  // }
 }
 
 // GestureDetector(

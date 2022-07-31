@@ -1,8 +1,8 @@
-class User {
+class SearchItems {
   final String name;
   final String username;
   final String image;
-  bool isFollowedByMe;
+  bool isClicked;
 
-  User(this.name, this.username, this.image, this.isFollowedByMe);
+  SearchItems(this.name, this.username, this.image, this.isClicked);
 }
